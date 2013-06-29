@@ -1,0 +1,6 @@
+Minimal Authrization Django
+===========================
+
+
+Description
+-----------
