@@ -6,6 +6,8 @@ Description
 -----------
 A minimal authorization application in Django, intended for hackers like me to have a quick look of what it is like when an authorization application in Django works. 
 
+Also includes, tutorial to genirc view (tut4)
+
 Links
 -----
 User Authentication With Django
