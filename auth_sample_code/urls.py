@@ -1,6 +1,7 @@
 from auth_sample_code.views import *
 from django.conf.urls.defaults import *
 
+
 from django.contrib import admin
 admin.autodiscover()
 
@@ -13,6 +14,9 @@ urlpatterns = patterns('',
 
     # Web portal.
     (r'^portal/', include('portal.urls')),
+
+    # Web portal.
+    (r'^polls/', include('polls.urls', namespace="polls")),
 
     # Serve static content.
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
