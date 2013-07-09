@@ -6,7 +6,7 @@ Description
 -----------
 A minimal authorization application in Django, intended for hackers like me to have a quick look of what it is like when an authorization application in Django works. 
 
-Also includes, tutorial to genirc view (tut4)
+Also includes, tutorial to genirc view (tut4, 5)
 
 Links
 -----
@@ -24,4 +24,7 @@ Using the Django authentication system
 ```bash
 https://docs.djangoproject.com/en/1.5/topics/auth/default/
 ```
-
+Django Book Form
+```bash
+http://www.djangobook.com/en/2.0/chapter07.html
+```
