@@ -3,9 +3,14 @@ from django.contrib.auth.decorators import login_required
 from portal.models import project 
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
-#from django.views.decorators.csrf import csrf_protect
-#@csrf_protect
+from django.views.decorators.csrf import csrf_protect
 
+
+from portal.forms import ContactForm
+from portal.forms import Registration_Form
+from django.core.mail import send_mail
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 
 @login_required
@@ -15,6 +20,52 @@ def portal_main_page(request):
     them to the login page.
     """
     return render_to_response('portal/index.html')
+
+
+@csrf_protect
+def contact(request):
+    errors = []
+    if request.method == 'POST':
+        if not request.POST.get('subject', ''):
+            errors.append('Enter a subject.')
+        if not request.POST.get('message', ''):
+            errors.append('Enter a message.')
+        if request.POST.get('email') and '@' not in request.POST['email']:
+            errors.append('Enter a valid e-mail address.')
+        if not errors:
+            send_mail(
+                request.POST['subject'],
+                request.POST['message'],
+                request.POST.get('email', 'noreply@example.com'),
+                ['siteowner@example.com'],
+            )
+        return HttpResponseRedirect('/portal/contact')
+    return render(request, 'portal/contact_form.html',
+        {
+            'errors': errors,
+            'subject': request.POST.get('subject', ''),
+            'message': request.POST.get('message', ''),
+            'email': request.POST.get('email', ''),
+        })
+
+
+@csrf_protect
+def register(request):
+    errors = []
+    if request.method == 'POST':
+        if not request.POST.get('username', ''):
+            errors.append('Enter a username.')
+        if not request.POST.get('password1', ''):
+            errors.append('Enter a password1.')
+        if not request.POST.get('password2', ''):
+            errors.append('Enter a password2.')
+        if request.POST.get('email') and '@' not in request.POST['email']:
+            errors.append('Enter a valid e-mail address.')
+        if not errors:
+            return HttpResponseRedirect('/portal')
+    else:
+        form = Registration_Form()
+    return render(request, 'portal/register.html', {'form': form})
 
 
 def user_test(request):
